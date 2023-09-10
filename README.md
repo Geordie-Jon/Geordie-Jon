@@ -1,6 +1,6 @@
-- 👋 Hi, I’m @Geordie-Jon
+- 👋 Hi, I’m Jon
 - 👀 I’m interested in The Earth, Space
-- 🌱 I’m currently learning AI programming, neural networks & Deep learning 
+- 🌱 I’m currently learning AI programming, neural networks & deep learning 
 - 💞️ I’m looking to collaborate with others
 - 📫 How to reach me ...
 
