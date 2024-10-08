@@ -2,5 +2,5 @@ BertualAssistant/bin/*
 BertualAssistant/include/*
 BertualAssistant/lib/*
 BertualAssistant/lib64
-
-
+*.idea
+*__pycache__
