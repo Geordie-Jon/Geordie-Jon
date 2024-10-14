@@ -1,15 +1,13 @@
 """PyAudio Example: Play a wave file."""
 
 import wave
-import sys
-
 import pyaudio
 
 
-CHUNK = 8192
+CHUNK = 1024
 
 
-with wave.open("microphone-results.wav", 'rb') as wf:
+with wave.open("./recordings/microphone-results.wav", 'rb') as wf:
     # Instantiate PyAudio and initialize PortAudio system resources (1)
     p = pyaudio.PyAudio()
 
@@ -20,8 +18,8 @@ with wave.open("microphone-results.wav", 'rb') as wf:
                     output=True)
 
     # Play samples from the wave file (3)
-    while len(data := wf.readframes(CHUNK)):  # Requires Python 3.8+ for :=
-        print(wf.tell())
+    while data := wf.readframes(CHUNK):  # Requires Python 3.8+ for :=
+        print(wf.tell(), len(data))
         stream.write(data)
 
     # Close stream (4)
