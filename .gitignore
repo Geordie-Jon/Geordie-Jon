@@ -4,5 +4,7 @@ BertualAssistant/include/*
 BertualAssistant/lib/*
 BertualAssistant/share/*
 BertualAssistant/lib64
+BertualAssistant/pyenv.cfg
+BertualAssistant/speech_tools/recordings
 *.idea
 *__pycache__
