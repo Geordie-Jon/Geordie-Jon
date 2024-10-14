@@ -1,22 +1,33 @@
 import speech_recognition as sr
+#import a player
+import pyaudio
+import wave
 
-def recognize_speech_from_mic():
-    # Initialize recognizer
-    recognizer = sr.Recognizer()
+CHUNK = 1024*2
 
+
+def get_audio_from_microphone(source: object,
+                              recognizer: sr.Recognizer) -> sr.AudioData:
     # Use the microphone as the source for input
-    with sr.Microphone() as source:
+    with sr.Microphone(chunk_size=CHUNK) as source:
         # Adjust for ambient noise and record the audio
-        recognizer.adjust_for_ambient_noise(source)
+        recognizer.adjust_for_ambient_noise(source, duration=1)
         print("Please speak into the microphone...")
-        audio = recognizer.listen(source)
+        audio = recognizer.listen(source)#, timeout=5, phrase_time_limit=15)
+        print("Got it! Now to recognize it...")
+        return audio
+    return None
 
+
+def recognize_speech_from_mic(recognizer: sr.Recognizer,
+                              microphone: sr.Microphone) -> None:
+    audio = get_audio_from_microphone(microphone, recognizer)
+
+    if not audio:
+        print("No audio detected")
+        return
     try:
-        if not audio:
-            print("No audio detected")
-            return
-        # Recognize speech using Google Web Speech API
-        text = recognizer.recognize_google(audio)
+        text = recognizer.recognize_whisper(audio)
         print("You said: " + text)
     except sr.UnknownValueError as e:
         print("Google Web Speech API could not understand the audio")
@@ -24,5 +35,33 @@ def recognize_speech_from_mic():
     except sr.RequestError as e:
         print("Could not request results from Google Web Speech API; {0}".format(e))
 
+def playback_audio(player: pyaudio.PyAudio,
+                   audio: sr.AudioData) -> None:
+    # Instantiate PyAudio and initialize PortAudio system resources (1)
+    p = player()
+
+    # Open stream (2)
+    stream = p.open(format=audio.sample_width,
+                    channels=2,
+                    rate=audio.sample_rate,
+                    output=True)
+    # Play samples from the wave file (3)
+    while len(data := audio.get_segment(CHUNK).frame_data):  # Requires Python 3.8+ for :=
+        print(data)
+        stream.write(data)
+
+    # Close stream (4)
+    stream.close()
+
+    # Release PortAudio system resources (5)
+    p.terminate()
+
+
 if __name__ == "__main__":
-    recognize_speech_from_mic()
+    test_player = pyaudio.PyAudio
+    # Initialize recognizer
+    test_recognizer = sr.Recognizer()
+    test_microphone = sr.Microphone()
+    audio = get_audio_from_microphone(test_microphone, test_recognizer)
+    recognize_speech_from_mic(test_recognizer, test_microphone)
+    playback_audio(test_player, audio)

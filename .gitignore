@@ -1,6 +1,8 @@
 BertualAssistant/bin/*
+BertualAssistant/etc/
 BertualAssistant/include/*
 BertualAssistant/lib/*
+BertualAssistant/share/*
 BertualAssistant/lib64
 *.idea
 *__pycache__
