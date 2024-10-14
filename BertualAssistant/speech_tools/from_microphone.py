@@ -1,7 +1,6 @@
-import speech_recognition as sr
-#import a player
+# import a player
 import pyaudio
-import wave
+import speech_recognition as sr
 
 CHUNK = 1024
 
@@ -15,8 +14,7 @@ def get_audio_from_microphone(source: object,
         print("Please speak into the microphone...")
         audio = recognizer.listen(source)#, timeout=5, phrase_time_limit=15)
         print("Got it! Now to recognize it...")
-        return audio
-    return None
+    return audio
 
 
 def recognize_speech_from_mic(recognizer: sr.Recognizer,
@@ -64,5 +62,4 @@ if __name__ == "__main__":
     audio = get_audio_from_microphone(test_microphone, test_recognizer)
     print(test_recognizer.recognize_whisper(audio))
     print(test_recognizer.recognize_google(audio))
-
     playback_audio(test_player, audio)
