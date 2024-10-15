@@ -52,7 +52,7 @@ def playback_audio(player: pyaudio.PyAudio,
     stream.close()
 
     # Release PortAudio system resources (5)
-    player.terminate()
+    # player.terminate()
 
 
 if __name__ == "__main__":
@@ -63,3 +63,4 @@ if __name__ == "__main__":
     print(f"whisper {test_recognizer.recognize_whisper(audio,model="base.en")}")
     print(f"Google  {test_recognizer.recognize_google(audio)}")
     #playback_audio(test_player, audio)
+    test_player.terminate()
