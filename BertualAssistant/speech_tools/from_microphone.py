@@ -60,6 +60,6 @@ if __name__ == "__main__":
     test_recognizer = sr.Recognizer()
     test_microphone = sr.Microphone()
     audio = get_audio_from_microphone(test_microphone, test_recognizer)
-    print(test_recognizer.recognize_whisper(audio))
+    #print(test_recognizer.recognize_whisper(audio))
     print(test_recognizer.recognize_google(audio))
-    playback_audio(test_player, audio)
+    #playback_audio(test_player, audio)
